@@ -1,0 +1,161 @@
+package com.builder.resume.service;
+
+import com.apurba.relevel.model.*;
+
+
+import com.apurba.relevel.repository.*;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService {
+    @Autowired
+    UserRepo repo;
+
+    @Autowired
+    ResumeRepo resume_repo;
+    @Autowired
+    EducationRepo edu_repo;
+    @Autowired
+    ExperienceRepo exp_repo;
+
+    //User ops
+    public boolean addUser(User newUser) {
+        // TODO Auto-generated method stub
+        if(repo.findById(newUser.getEmailid()).equals(Optional.empty())) {
+            repo.save(newUser);
+            return true;
+        }
+        return false;
+    }
+
+    public User getUserById(String email) {
+        // TODO Auto-generated method stub
+        try {
+            Optional<User> opuser = repo.findById(email);
+            if(!opuser.isEmpty())
+                return opuser.get();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    //Resume ops
+    public void addResume(Resume resume){
+        resume_repo.save(resume);
+    }
+    public Resume findResumeById(Integer rid){
+        try {
+            Optional<Resume> opres = resume_repo.findById(rid);
+            if(!opres.isEmpty())
+                return opres.get();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+
+    public int addEducation(Integer rid, Education education) {
+        try {
+            Optional<Resume> opres = resume_repo.findById(rid);
+            if(opres.isEmpty())
+                return 403;
+            else{
+                Resume updated_resume = opres.get();
+                updated_resume.getEducations().add(education);
+                resume_repo.save(updated_resume);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 403;
+        }
+        return 200;
+    }
+
+    public int addExperience(Integer rid, Experience experience) {
+        try {
+            Optional<Resume> opres = resume_repo.findById(rid);
+            if(!opres.isEmpty())
+                return 403;
+            else{
+                Resume updated_resume = opres.get();
+                updated_resume.getExperiences().add(experience);
+                resume_repo.save(updated_resume);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 403;
+        }
+        return 200;
+    }
+
+    public int addSkill(Integer rid, String skill) {
+        try {
+            Optional<Resume> opres = resume_repo.findById(rid);
+            if(!opres.isEmpty())
+                return 403;
+            else{
+                Resume updated_resume = opres.get();
+                updated_resume.setSkills(updated_resume.getSkills()+skill+",");
+                resume_repo.save(updated_resume);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 403;
+        }
+        return 200;
+    }
+
+    public int removeEducation(Integer eid) {
+        edu_repo.deleteById(eid);
+        return 200;
+    }
+
+    public int removeExperience(Integer xpid) {
+        exp_repo.deleteById(xpid);
+        return 200;
+    }
+
+    public int removeSkill(Integer rid, String skill) {
+        try {
+            Optional<Resume> opres = resume_repo.findById(rid);
+            if(!opres.isEmpty())
+                return 403;
+            else{
+                Resume updated_resume = opres.get();
+                String skills = updated_resume.getSkills();
+                String skillArray[] = skills.split(",");
+                String updatedSkills = "";
+                for(String s: skillArray){
+                    if(!s.equalsIgnoreCase(skill))
+                        updatedSkills+=s+",";
+                }
+                updated_resume.setSkills(updatedSkills);
+                resume_repo.save(updated_resume);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 403;
+        }
+        return 200;
+    }
+
+    public List<User> getAllUsers() {
+        return repo.findAll();
+    }
+}
