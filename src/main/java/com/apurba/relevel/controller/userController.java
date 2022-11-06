@@ -68,6 +68,11 @@ public class userController {
         return rid;
     }
     
+    
+    
+    
+    
+    /* save part */
     @RequestMapping(value = "/savepersonaldetails/{emailid}", method = RequestMethod.POST)
     public int savePersonalDetails(@PathVariable String emailid, @RequestBody Resume resume) {
     	User user = user_service.getUserById(emailid);
@@ -88,28 +93,18 @@ public class userController {
         return 200;
     }
     
-    @RequestMapping(value = "/deleteexperiencedetails/{xpid}", method = RequestMethod.GET)
-    public int deleteExperienceDetails(@PathVariable Integer xpid) {
-        return user_service.removeExperience(xpid);
-    }
-    /* experience end */
-
-    /* skill start */
     @RequestMapping(value = "/saveskill/{resumeid}", method = RequestMethod.GET)
     public int saveSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
         return user_service.addSkill(resumeid, skill);
     }
 
-    @RequestMapping(value = "/deleteskill/{resumeid}", method = RequestMethod.GET)
-    public int deleteSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
-        return user_service.removeSkill(resumeid, skill);
-    }
-    
-
-    /* skill end */
+   
     
     
     
+    
+    
+    /* get part */
     @RequestMapping(value = "/getalleducation/{resumeid}", method = RequestMethod.GET)
     public List<Education> getalleducation(@PathVariable Integer resumeid) {
     	Resume resume = res_repo.findByresumeid(resumeid);
@@ -127,6 +122,27 @@ public class userController {
         return user_service.findResumeById(resumeid);
     }
 
+    
+    
+    
+    
+    
+    /* delete part */
+    @RequestMapping(value = "/deleteeducationdetails/{eid}", method = RequestMethod.GET)
+    public int deleteEducationDetails(@PathVariable Integer eid) {
+        return user_service.removeEducation(eid);
+    }
+
+    
+    @RequestMapping(value = "/deleteskill/{resumeid}", method = RequestMethod.GET)
+    public int deleteSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
+        return user_service.removeSkill(resumeid, skill);
+    }
+    
+    @RequestMapping(value = "/deleteexperiencedetails/{xpid}", method = RequestMethod.GET)
+    public int deleteExperienceDetails(@PathVariable Integer xpid) {
+        return user_service.removeExperience(xpid);
+    }
 
     
 

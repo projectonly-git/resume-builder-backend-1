@@ -125,6 +125,12 @@ public class userService {
         return 200;
     }
 
+    
+    
+    
+    
+    
+    
     public int removeEducation(Integer eid) {
         edu_repo.deleteById(eid);
         return 200;
