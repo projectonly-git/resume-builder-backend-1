@@ -41,7 +41,7 @@ public class UserService {
         // TODO Auto-generated method stub
         try {
             Optional<User> opuser = repo.findById(email);
-            if(!opuser.isEmpty())
+            if(opuser!= null)
                 return opuser.get();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -72,7 +72,7 @@ public class UserService {
     public int addEducation(Integer rid, Education education) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(opres.isEmpty())
+            if(opres != null)
                 return 403;
             else{
 
@@ -98,7 +98,7 @@ public class UserService {
     public int addExperience(Integer rid, Experience experience) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(opres.isEmpty())
+            if(opres!= null)
                 return 403;
             else{
                 Resume updated_resume = opres.get();
@@ -119,7 +119,7 @@ public class UserService {
     public int addSkill(Integer rid, String skill) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(opres.isEmpty())
+            if(opres!= null)
                 return 403;
             else{
                 Resume updated_resume = opres.get();
@@ -152,7 +152,7 @@ public class UserService {
     public int removeSkill(Integer rid, String skill) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(opres.isEmpty())
+            if(opres!= null)
                 return 403;
             else{
                 Resume updated_resume = opres.get();
