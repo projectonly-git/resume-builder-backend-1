@@ -70,6 +70,46 @@ public class userController {
         //Resume newResume = new Resume(rid, "","","","","","",0, emailid, "", "","",user, "",null,null);
         return rid;
     }
+    
+    @RequestMapping(value = "/savepersonaldetails/{emailid}", method = RequestMethod.POST)
+    public int savePersonalDetails(@PathVariable String emailid, @RequestBody Resume resume) {
+    	User user = user_service.getUserById(emailid);
+    	resume.setUser(user);
+        user_service.addResume(resume);
+        return 200;
+    }
+
+    @RequestMapping(value = "/saveeducationdetails/{resumeid}", method = RequestMethod.POST)
+    public int savePersonalDetails(@PathVariable Integer resumeid, @RequestBody Education education) {
+        user_service.addEducation(resumeid, education);
+        return 200;
+    }
+
+    @RequestMapping(value = "/saveexperiencedetails/{resumeid}", method = RequestMethod.POST)
+    public int saveEperienceDetails(@PathVariable Integer resumeid, @RequestBody Experience experience) {
+        user_service.addExperience(resumeid, experience);
+        return 200;
+    }
+    
+    @RequestMapping(value = "/deleteexperiencedetails/{xpid}", method = RequestMethod.GET)
+    public int deleteExperienceDetails(@PathVariable Integer xpid) {
+        return user_service.removeExperience(xpid);
+    }
+    /* experience end */
+
+    /* skill start */
+    @RequestMapping(value = "/saveskill/{resumeid}", method = RequestMethod.POST)
+    public int saveSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
+        return user_service.addSkill(resumeid, skill);
+    }
+
+    @RequestMapping(value = "/deleteskill/{resumeid}", method = RequestMethod.POST)
+    public int deleteSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
+        return user_service.removeSkill(resumeid, skill);
+    }
+
+    /* skill end */
+
 
     
 

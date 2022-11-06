@@ -66,13 +66,13 @@ public class userService {
     }
 
 
-    /*public int addEducation(Integer rid, Education education) {
+    public int addEducation(Integer rid, Education education) {
         try {
-            Optional<Resume> opres = resume_repo.findById(rid);
+            Resume opres = resume_repo.findByresumeid(rid);
             if(opres == null)
                 return 403;
             else{
-                Resume updated_resume = opres.get();
+                Resume updated_resume = opres;
                 updated_resume.getEducations().add(education);
                 resume_repo.save(updated_resume);
             }
@@ -86,11 +86,11 @@ public class userService {
 
     public int addExperience(Integer rid, Experience experience) {
         try {
-            Optional<Resume> opres = resume_repo.findById(rid);
+            Resume opres = resume_repo.findByresumeid(rid);
             if(opres == null)
                 return 403;
             else{
-                Resume updated_resume = opres.get();
+                Resume updated_resume = opres;
                 updated_resume.getExperiences().add(experience);
                 resume_repo.save(updated_resume);
             }
@@ -104,11 +104,11 @@ public class userService {
 
     public int addSkill(Integer rid, String skill) {
         try {
-            Optional<Resume> opres = resume_repo.findById(rid);
+            Resume opres = resume_repo.findByresumeid(rid);
             if(opres == null)
                 return 403;
             else{
-                Resume updated_resume = opres.get();
+                Resume updated_resume = opres;
                 updated_resume.setSkills(updated_resume.getSkills()+skill+",");
                 resume_repo.save(updated_resume);
             }
@@ -132,11 +132,11 @@ public class userService {
 
     public int removeSkill(Integer rid, String skill) {
         try {
-            Optional<Resume> opres = resume_repo.findById(rid);
+            Resume opres = resume_repo.findByresumeid(rid);
             if(opres == null)
                 return 403;
             else{
-                Resume updated_resume = opres.get();
+                Resume updated_resume = opres;
                 String skills = updated_resume.getSkills();
                 String skillArray[] = skills.split(",");
                 String updatedSkills = "";
@@ -155,7 +155,4 @@ public class userService {
         return 200;
     }
 
-    public List<User> getAllUsers() {
-        return repo.findAll();
-    }*/
 }
