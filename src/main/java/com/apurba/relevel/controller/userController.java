@@ -34,9 +34,6 @@ public class userController {
     }
     
     
-    
-    
-    
     @RequestMapping(value = "/user/resume/all", method = RequestMethod.GET)
     public List<Resume> getUserResumeList(@RequestParam String email) {
         User user = user_service.getUserById(email);
@@ -98,17 +95,37 @@ public class userController {
     /* experience end */
 
     /* skill start */
-    @RequestMapping(value = "/saveskill/{resumeid}", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveskill/{resumeid}", method = RequestMethod.GET)
     public int saveSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
         return user_service.addSkill(resumeid, skill);
     }
 
-    @RequestMapping(value = "/deleteskill/{resumeid}", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteskill/{resumeid}", method = RequestMethod.GET)
     public int deleteSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
         return user_service.removeSkill(resumeid, skill);
     }
+    
 
     /* skill end */
+    
+    
+    
+    @RequestMapping(value = "/getalleducation/{resumeid}", method = RequestMethod.GET)
+    public List<Education> getalleducation(@PathVariable Integer resumeid) {
+    	Resume resume = res_repo.findByresumeid(resumeid);
+        return resume.getEducations();
+    }
+
+    @RequestMapping(value = "/getallexp/{resumeid}", method = RequestMethod.GET)
+    public List<Experience> getallexp(@PathVariable Integer resumeid) {
+    	Resume resume = res_repo.findByresumeid(resumeid);
+        return resume.getExperiences();
+    }
+
+    @RequestMapping(value = "/getresumedetails/{resumeid}", method = RequestMethod.GET)
+    public Resume saveResumeDetails(@PathVariable Integer resumeid) {
+        return user_service.findResumeById(resumeid);
+    }
 
 
     

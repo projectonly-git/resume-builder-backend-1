@@ -18,7 +18,15 @@ public class Education {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Resume resume;
 
-    public Integer getEduid() {
+    public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
+	}
+
+	public Integer getEduid() {
         return eduid;
     }
 

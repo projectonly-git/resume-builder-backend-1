@@ -18,7 +18,15 @@ public class Experience {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Resume resume;
 
-    public Integer getXpid() {
+    public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
+	}
+
+	public Integer getXpid() {
         return xpid;
     }
 

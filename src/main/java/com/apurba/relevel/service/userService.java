@@ -55,7 +55,7 @@ public class userService {
     public Resume findResumeById(Integer rid){
         try {
             Resume opres = resume_repo.findByresumeid(rid);
-            if(opres == null)
+            if(opres != null)
                 return opres;
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -72,16 +72,19 @@ public class userService {
             if(opres == null)
                 return 403;
             else{
-                Resume updated_resume = opres;
+            	Resume updated_resume =opres;
                 updated_resume.getEducations().add(education);
                 resume_repo.save(updated_resume);
+                education.setResume(updated_resume);
+                edu_repo.save(education) ;
+            	System.out.println(updated_resume.toString());
+                return 200;
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return 403;
         }
-        return 200;
     }
 
     public int addExperience(Integer rid, Experience experience) {
@@ -90,9 +93,11 @@ public class userService {
             if(opres == null)
                 return 403;
             else{
-                Resume updated_resume = opres;
+            	Resume updated_resume = opres;
                 updated_resume.getExperiences().add(experience);
                 resume_repo.save(updated_resume);
+                experience.setResume(updated_resume);
+                exp_repo.save(experience);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
