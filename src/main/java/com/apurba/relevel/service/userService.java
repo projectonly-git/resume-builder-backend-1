@@ -48,15 +48,15 @@ public class userService {
         return null;
     }
 
-    /*//Resume ops
+    //Resume ops
     public void addResume(Resume resume){
         resume_repo.save(resume);
     }
     public Resume findResumeById(Integer rid){
         try {
-            Optional<Resume> opres = resume_repo.findById(rid);
+            Resume opres = resume_repo.findByresumeid(rid);
             if(opres == null)
-                return opres.get();
+                return opres;
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class userService {
     }
 
 
-    public int addEducation(Integer rid, Education education) {
+    /*public int addEducation(Integer rid, Education education) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
             if(opres == null)
