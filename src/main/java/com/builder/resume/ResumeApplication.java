@@ -8,25 +8,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class ResumeApplication {
+public class ResumeApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResumeApplication.class, args);
 	}
 	
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		CorsConfiguration config = new CorsConfiguration();
-	    return new WebMvcConfigurer() {
-	        @Override
-	        public void addCorsMappings(CorsRegistry registry) {
-	            registry.addMapping("/**")
-	                    .allowedOrigins("*")
-	                    .allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
-	            
-	            config.setAllowCredentials(false);
-	        }
-	    };
-	}
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("*");
+    }
 
 }
