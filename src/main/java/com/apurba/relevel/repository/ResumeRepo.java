@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ResumeRepo extends JpaRepository<Resume, Integer> {
 
 	Resume findByresumeid(Integer rid);
+
+	void deleteByresumeid(Integer rid);
 }

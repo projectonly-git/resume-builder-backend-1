@@ -23,6 +23,8 @@ public class userService {
     EducationRepo edu_repo;
     @Autowired
     ExperienceRepo exp_repo;
+    @Autowired
+    Achivmentrepo ach_repo;
 
     //User ops
     public boolean addUser(User newUser) {
@@ -106,6 +108,26 @@ public class userService {
         }
         return 200;
     }
+    
+    public int addAchivment(Integer resumeid, Achivment achivment) {
+    	try {
+            Resume opres = resume_repo.findByresumeid(resumeid);
+            if(opres == null)
+                return 403;
+            else{
+            	Resume updated_resume = opres;
+                updated_resume.getAchivments().add(achivment);
+                resume_repo.save(updated_resume);
+                achivment.setResume(updated_resume);
+                ach_repo.save(achivment);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 403;
+        }
+        return 200;
+	}
 
     public int addSkill(Integer rid, String skill) {
         try {
@@ -165,5 +187,17 @@ public class userService {
         }
         return 200;
     }
+
+	public int removeResume(Integer rid) {
+		resume_repo.deleteById(rid);
+		return 0;
+	}
+
+	public int removeAchivment(Integer achivmentid) {
+		ach_repo.deleteById(achivmentid);
+        return 200;
+	}
+
+	
 
 }

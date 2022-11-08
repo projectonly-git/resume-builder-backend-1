@@ -1,5 +1,6 @@
 package com.apurba.relevel.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -12,7 +13,7 @@ public class User {
     private String emailid;
     private String password;
     private String username;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="user" , cascade = CascadeType.REMOVE)
     private List<Resume> resumelist;
 
     public String getEmailid() {

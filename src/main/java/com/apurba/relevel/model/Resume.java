@@ -11,11 +11,14 @@ public class Resume {
     private Integer resumeid;
     private String date;
     private String templateid;
-    private String username;
-    private String designation;
+    private String firstname;
+    private String secondname;
+   
+
+	private String designation;
     private String state;
     private String city;
-    private Integer pincode;
+    private String pincode;
     private String emailId;
     private String phonenumber;
     private String linkedin;
@@ -24,10 +27,39 @@ public class Resume {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
     private String skills;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume", cascade = CascadeType.REMOVE)
     private List<Education> educations;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume" ,cascade = CascadeType.REMOVE)
     private List<Experience> experiences;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume" ,cascade = CascadeType.REMOVE)
+    private List<Achivment> achivments;
+    
+    
+    public List<Achivment> getAchivments() {
+		return achivments;
+	}
+
+	public void setAchivments(List<Achivment> achivments) {
+		this.achivments = achivments;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getSecondname() {
+		return secondname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public void setSecondname(String secondname) {
+		this.secondname = secondname;
+	}
 
     public User getUser() {
         return user;
@@ -61,13 +93,7 @@ public class Resume {
         this.templateid = templateid;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getDesignation() {
         return designation;
@@ -93,11 +119,11 @@ public class Resume {
         this.city = city;
     }
 
-    public Integer getPincode() {
+    public String getPincode() {
         return pincode;
     }
 
-    public void setPincode(Integer pincode) {
+    public void setPincode(String pincode) {
         this.pincode = pincode;
     }
 
@@ -160,7 +186,7 @@ public class Resume {
     public Resume() {
     }
 
-    public Resume(Integer resumeid, String date, String templateid, String username, String designation, String state, String city, Integer pincode, String emailId, String phonenumber, String linkedin, String github, User user, String skills, List<Education> educations, List<Experience> experiences) {
+    /*public Resume(Integer resumeid, String date, String templateid, String username, String designation, String state, String city, String pincode, String emailId, String phonenumber, String linkedin, String github, User user, String skills, List<Education> educations, List<Experience> experiences) {
         this.resumeid = resumeid;
         this.date = date;
         this.templateid = templateid;
@@ -177,5 +203,5 @@ public class Resume {
         this.skills = skills;
         this.educations = educations;
         this.experiences = experiences;
-    }
+    }*/
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -58,11 +60,16 @@ public class userController {
         int rid = (int)Math.round(Math.random()*10000);
         User user = user_service.getUserById(emailid);
         Resume resume = new Resume();
-        resume.setResumeid(rid);
-        //resume.setEmailId(emailid);
+        resume.setResumeid(rid); resume.setTemplateid(templateid); resume.setDate( String.valueOf(  new Date() ) );
+        resume.setFirstname(""); resume.setSecondname(""); resume.setDesignation("");
+        resume.setCity(""); resume.setState("AK-Alaska"); resume.setPincode("");
+        resume.setEmailId(""); resume.setPhonenumber("");
+        resume.setLinkedin(""); resume.setGithub("");
+        
         resume.setUser(user);
-        resume.setTemplateid(templateid);
-        resume.setSkills("");
+        
+        resume.setSkills(""); resume.setEducations(null); resume.setExperiences(null); resume.setAchivments(null);
+
         user_service.addResume(resume);
         //Resume newResume = new Resume(rid, "","","","","","",0, emailid, "", "","",user, "",null,null);
         return rid;
@@ -96,6 +103,11 @@ public class userController {
     @RequestMapping(value = "/saveskill/{resumeid}", method = RequestMethod.GET)
     public int saveSkillDetails(@PathVariable Integer resumeid, @RequestParam String skill) {
         return user_service.addSkill(resumeid, skill);
+    }
+    
+    @RequestMapping(value = "/saveachivement/{resumeid}", method = RequestMethod.POST)
+    public int saveachivement(@PathVariable Integer resumeid, @RequestBody Achivment achivment) {
+        return user_service.addAchivment(resumeid, achivment);
     }
 
    
@@ -142,6 +154,15 @@ public class userController {
     @RequestMapping(value = "/deleteexperiencedetails/{xpid}", method = RequestMethod.GET)
     public int deleteExperienceDetails(@PathVariable Integer xpid) {
         return user_service.removeExperience(xpid);
+    }
+    @RequestMapping(value = "/deleteresume/{resumeid}", method = RequestMethod.GET)
+    public int deleteresume(@PathVariable Integer resumeid) {
+    	System.out.println(resumeid);
+        return user_service.removeResume(resumeid);
+    }
+    @RequestMapping(value = "/deletethisachivment/{achivmentid}", method = RequestMethod.GET)
+    public int deletethisachivment(@PathVariable Integer achivmentid) {
+        return user_service.removeAchivment(achivmentid);
     }
 
     
