@@ -198,6 +198,30 @@ public class userService {
         return 200;
 	}
 
+	public int setresumetemplate(String emailid, Integer rid, String tid) {
+		Resume opres = resume_repo.findByresumeid(rid);
+		if(opres == null)
+            return 403;
+        else{
+            Resume updated_resume = opres;
+            updated_resume.setTemplateid(tid);
+            resume_repo.save(updated_resume);
+            return 200;
+        }
+	}
+
+	public int updateresumemedoreng(String emailid, Integer rid, String medoreng) {
+		Resume opres = resume_repo.findByresumeid(rid);
+		if(opres == null)
+            return 403;
+        else{
+            Resume updated_resume = opres;
+            updated_resume.setMedoreng(medoreng);
+            resume_repo.save(updated_resume);
+            return 200;
+        }
+	}
+
 	
 
 }

@@ -56,13 +56,15 @@ public class userController {
     }
     
     @RequestMapping(value = "/createresume", method = RequestMethod.GET)
-    public int createResume(@RequestParam String emailid, @RequestParam String templateid) {
+    public int createResume(@RequestParam String emailid) {
         int rid = (int)Math.round(Math.random()*10000);
         User user = user_service.getUserById(emailid);
         Resume resume = new Resume();
-        resume.setResumeid(rid); resume.setTemplateid(templateid); resume.setDate( String.valueOf(  new Date() ) );
+        resume.setResumeid(rid); resume.setMedoreng("engineer"); 
+        
+        resume.setTemplateid("1"); resume.setDate( String.valueOf(  new Date() ) );
         resume.setFirstname(""); resume.setSecondname(""); resume.setDesignation("");
-        resume.setCity(""); resume.setState("AK-Alaska"); resume.setPincode("");
+        resume.setAddress(""); resume.setCity(""); resume.setState("AK-Alaska"); resume.setPincode("");
         resume.setEmailId(""); resume.setPhonenumber("");
         resume.setLinkedin(""); resume.setGithub("");
         
@@ -73,6 +75,16 @@ public class userController {
         user_service.addResume(resume);
         //Resume newResume = new Resume(rid, "","","","","","",0, emailid, "", "","",user, "",null,null);
         return rid;
+    }
+    
+    @RequestMapping(value = "/updateresumemedoreng", method = RequestMethod.GET)
+    public int updateresumemedoreng(@RequestParam String emailid, @RequestParam Integer resumeid, @RequestParam String medoreng) {
+        return user_service.updateresumemedoreng(emailid, resumeid, medoreng);
+    }
+    
+    @RequestMapping(value = "/setresumetemplate", method = RequestMethod.GET)
+    public int setresumetemplate(@RequestParam String emailid, @RequestParam Integer resumeid, @RequestParam String templateid) {
+        return user_service.setresumetemplate(emailid, resumeid, templateid);
     }
     
     

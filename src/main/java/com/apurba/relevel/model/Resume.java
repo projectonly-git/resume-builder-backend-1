@@ -11,18 +11,28 @@ public class Resume {
     private Integer resumeid;
     private String date;
     private String templateid;
-    private String firstname;
-    private String secondname;
-   
+    private String medoreng;
+    
+    
+    
+    
 
+	private String firstname;
+    private String secondname;
 	private String designation;
-    private String state;
+	
+	private String address;
+	private String state;
     private String city;
     private String pincode;
+    
+    
     private String emailId;
     private String phonenumber;
     private String linkedin;
     private String github;
+    
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
@@ -43,6 +53,15 @@ public class Resume {
 
 	public void setAchivments(List<Achivment> achivments) {
 		this.achivments = achivments;
+	}
+	
+	
+	public String getMedoreng() {
+		return medoreng;
+	}
+
+	public void setMedoreng(String medoreng) {
+		this.medoreng = medoreng;
 	}
 
 	public String getFirstname() {
@@ -185,6 +204,14 @@ public class Resume {
 
     public Resume() {
     }
+    
+    public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
     /*public Resume(Integer resumeid, String date, String templateid, String username, String designation, String state, String city, String pincode, String emailId, String phonenumber, String linkedin, String github, User user, String skills, List<Education> educations, List<Experience> experiences) {
         this.resumeid = resumeid;
